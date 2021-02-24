@@ -5,8 +5,6 @@ Lidar Odometry
 ---
 
 ## Overview
-
-本作业旨在实现主流的激光前端里程计算法.
 The purpose of this assignment is to implemente the front-end algorithm, mainly focus on point registration based on points.
 There is three algorithms to be implemented in this assignment:
 * ICP
