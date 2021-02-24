@@ -1,18 +1,21 @@
-# Sensor Fusion: Lidar Odometry -- 多传感器融合定位与建图: 激光里程计
+# Sensor Fusion: Lidar Odometry
 
-深蓝学院, 多传感器融合定位与建图, 第1节Lidar Odometry代码框架.
+Lidar Odometry 
 
 ---
 
 ## Overview
 
 本作业旨在实现主流的激光前端里程计算法.
+The purpose of this assignment is to implemente the front-end algorithm, mainly focus on point registration based on points.
+There is three algorithms to be implemented in this assignment:
+* ICP
+* NDT
+* ICP based Gauss Newton Iteration
 
 ---
 
 ## Getting Started
-
-### 及格要求: 跑通提供的工程框架
 
 启动Docker后, 打开浏览器, 进入Web Workspace. 启动Terminator, 将两个Shell的工作目录切换如下:
 
@@ -47,7 +50,7 @@ rosbag play kitti_lidar_only_2011_10_03_drive_0027_synced.bag
 
 <img src="doc/demo.png" alt="Frontend Demo" width="100%">
 
-### 良好要求: 使用evo计算出分段统计误差和整体轨迹误差
+### 使用evo计算出分段统计误差和整体轨迹误差
 
 此处以Docker Workspace为例. 在Terminator中添加新窗口, 切换至如下目录:
 
@@ -64,11 +67,6 @@ cd /workspace/assignments/01-lidar-odometry/src/lidar_localization/slam_data/tra
 
 请使用上述两个文件, 完成**evo**的评估
 
-### 优秀要求: 自己实现点云匹配方法，而不是直接调用pcl库的匹配方法，并使用evo计算出指标
-
-# 高能预警: 该作业需要足够的C++与ROS开发基础. 如果没有, 欢迎发挥主观能动性, 在有限的时间内积极Catch Up, 或者选修深蓝学院的相关课程, 留待务实基础之后再来学习.
-
-# 学习建议: 此处的参考代码, 只会削弱你的学习收获. 如果有意提高自己, 请在理解框架的基础上, 删除参考实现, 从零开始自己实现. 相信真正热爱学习的你，可以做到!!!
 
 前端里程计的算法, 在[此处](src/lidar_localization/src/front_end/front_end.cpp#L76)添加. **作为示例**, 此处在框架原有的`ICP`, `NDT`两方法的基础上, 增加了新的方法`ICP_SVD`.
 
