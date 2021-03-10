@@ -1,62 +1,59 @@
-# 基于激光的多传感器融合定位与建图
+# Sensor Fusion: Lidar Odometry -- 多传感器融合定位与建图: 惯性导航原理
 
-深蓝学院[多传感器融合定位/Sensor Fusion](https://www.shenlanxueyuan.com/my/course/261)学习环境.
+深蓝学院, 多传感器融合定位与建图, 第5章IMU Calib代码框架.
 
 ---
 
 ## Overview
 
-本Repo为基于**ROS melodic** @ **Ubuntu 18.04**的[多传感器融合定位/Sensor Fusion](https://www.shenlanxueyuan.com/my/course/261)学习环境. 
-
-为了节约安装配置的时间:
-
-* 部分依赖项由于网络原因难以取得
-
-* 新依赖的引入可能会导致与本地依赖的冲突
-
-上述环境将以**Docker Image**的形式提供, 实现与Native PC环境的隔离. 本项目Native PC的操作系统选择**Ubuntu**. Windows与Mac不推荐使用, 若有意尝试, 请自行搜索相关解决方案.
+本作业旨在加深对不依赖转台的标定方法的理解.
 
 ---
 
-### 安装Ubuntu
+## Getting Started
 
-首先请确保您可以访问**Ubuntu**开发环境. 如果没有**Ubuntu**环境, 请按照[点击链接进入](ubuntu-setup/README.md)指南, 在本地PC上安装配置**Ubuntu**环境.
+### 及格要求: 完成雅克比推导, 且结果正确
 
----
+推就完了! Good Luck!
 
-### 获取Docker开发环境
+### 良好要求: 完成新的内参模型下的标定, 且结果正确
 
-本课程推荐使用官方Docker环境[点击链接进入](docker/README.md)完成课程学习. Docker提供了一个轻量级的标准化开发环境, 能够避免环境配置差异导致的诸多问题.
+启动Docker后, 打开浏览器, 进入Web Workspace. 启动Terminator, 将Shell的工作目录切换如下:
 
----
+<img src="doc/images/terminator.png" alt="Terminator" width="100%">
 
-### Workspace
+**注意** Docker环境已包含**IMU TK**的全部依赖, 可直接编译+测试内参模型以及相应的标定结果. 
 
-当Native PC与Course Docker Environment均准备就绪时, 即可开始使用本开发环境:
+使用**本地环境**的同学:
 
-* 第一次使用时, 请首先下载课程配套的KITTI测试数据.
+* 请参考[here](src/imu_tk/README.md), 自行完成环境配置
 
-* 之后, 即可通过**本地VSCode开发, Docker内部编译测试**的模式, 完成课程作业.
+在**上侧**的Shell中, 输入如下命令, **编译imu_tk**
 
-#### 获取课程数据
+```bash
+# create & go to build:
+mkdir build && cd build
+cmake .. && make -j4
+# go back to project root:
+cd ..
+```
 
-在第一次使用时, 需要将**课程配套的修复后KITTI数据**下载至本地文件系统. 具体操作方法参考[点击链接进入](workspace/data/kitti/README.md)
+然后进入**bin**目录下, **运行IMU TK, 获得标定结果**
 
-#### 开发, 编译与测试
+```bash
+# go to bin
+cd bin
+./test_imu_calib test_data/xsens_acc.mat test_data/xsens_gyro.mat
+```
 
-启动Docker环境后, **Docker**中的/workspace目录, 会被映射到**当前Repo**中的workspace目录.
+成功后, 可以看到如下的Shell Output & GNU Plot Visualization. 下图演示结果已将模型修改为下三角. 
 
-使用该Workspace进行开发, 编译与测试的方法如下:
+下面请搜索**TODO**, 将内参模型修改为下三角. **提交时需要明确指出对代码进行了怎样的修改. 仅复制粘贴下述示意图, 你将不会得到此题的分数**.
 
-* 在**当前Repo的workspace**下, 启动[VSCode](https://code.visualstudio.com/), 编辑源代码:
+<img src="doc/images/shell-output.png" alt="IMU TK, Shell Output" width="100%">
 
-<img src="doc/development-environment.png" alt="Development Environment, Native VS Code in Mounting Point" width="100%">
+<img src="doc/images/gnu-plot-visualization.png" alt="IMU TK, GNU Plot Visualization" width="100%">
 
-* 在**Docker /workspace**下, 进行编译. 具体的编译方法, 请参考[作业0 Hello, KITTI](workspace/assignments/00-hello-kitti/README.md)
+### 优秀要求: 使用解析式求导完成标定, 且结果正确
 
-
----
-
-Keep Learning & Keep Coding
-
-Ge Yao, alexgecontrol@qq.com
+LOAM解析求导都搞定了, 这个对你完全不是事儿, 加油!
